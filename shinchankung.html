@@ -336,7 +336,7 @@
                         class="status-checkbox" 
                         ${order.status === 'completed' ? 'checked' : ''} 
                         onchange="toggleOrderStatus('${order._id}', this.checked)">
-                    <button class="delete-btn" onclick="deleteOrder('${order.id}')">ลบออเดอร์</b>
+                    <button class="delete-btn" onclick="deleteOrder('${order._id}')">ลบออเดอร์</b>
                 </div>
                 `;
 
