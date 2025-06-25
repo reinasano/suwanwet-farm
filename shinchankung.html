@@ -328,7 +328,7 @@
                     <h4>รายการสินค้า:</h4>
                     <ul>${itemsHTML}</ul>
                     <div class="bill-total">รวมทั้งหมด: ${total} $</div>
-                    ${order.note?.trim() ? `<div class="note-box">📝 หมายเหตุ: ${order.note}</div>` : ""}
+                    ${order.note?.trim() ? `<div class="note-box">📝 ออเดอร์จากร้าน: ${order.note}</div>` : ""}
                 <div class="status-section">
                     <label for="status-${order._id}">ทำเครื่องหมายว่าเสร็จแล้ว:</label>
                     <input type="checkbox" 
