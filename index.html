@@ -4,30 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suwanwet Farm</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: 'Sarabun', sans-serif;
+            font-family: 'Itim', sans-serif;
             margin: 0;
-            padding: 20px;
-            background: url('bg.png');
-            background-color: #00675b;
+            padding: 0;
+            background: #201e1f; /* สีพื้นหลังหลัก */
             position: relative;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255,255,255,0.5);
-            z-index: -1;
-        }
-
-        h1 {
+        /* --- Header Styles --- */
+        .page-header {
             text-align: center;
-            color: #fff9a0;
+            margin-top: -30px; /* รักษาระยะห่างตามที่คุณตั้งไว้ */
+            margin-bottom: 30px;
+            background-color: rgba(248, 248, 248, 0); /* โปร่งใส */
+            padding: 15px 0;
+            width: 100%;
+        }
+
+        .page-header img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        /* --- End Header Styles --- */
+
+        h1 { /* เพิ่ม H1 กลับมาและปรับสีให้เข้ากับธีม */
+            text-align: center;
+            color: #f4572a; /* สีส้มแดงสำหรับหัวข้อ */
+            margin-top: 20px;
             margin-bottom: 20px;
+            font-weight: normal;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
         }
 
         .shop {
@@ -40,32 +56,40 @@
         }
 
         .product {
-            background: #fff9a0;
+            background: #fff; /* พื้นหลังสีขาวตามที่คุณต้องการ */
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             width: 180px;
-            padding: 15px;
+            height: 280px;
+            padding: 20px;
             text-align: center;
-            transition: transform 0.15s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            /* ลบ border-image ออกเนื่องจาก product เป็นสีขาว */
+            border: none; /* ไม่มีขอบ */
         }
         .product:hover {
-            transform: scale(1.05);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
         }
 
         .product img {
-            width: 100%;
+            width: 80%;
             border-radius: 8px;
-            margin-bottom: 10px;
+            margin-top: -15px;
             height: 150px;
             object-fit: cover;
+            opacity: 1;
         }
 
         .product span {
             display: block;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #00675b;
+            font-weight: normal;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            color: #201e1f; /* สีดำสำหรับชื่อสินค้า */
         }
 
         .qty-control {
@@ -73,149 +97,289 @@
             justify-content: center;
             align-items: center;
             gap: 8px;
-            margin-bottom: 10px;
+            margin-top: 30px;
+            margin-bottom: 60px;
+            z-index: 1;
+            position: relative;
         }
 
         .qty-control button {
-            background: #f0c6fb;
+            background: rgba(255, 255, 255, 1);
             border: none;
-            color: #00675b;
+            color: #5271ff; /* สีน้ำเงินสำหรับปุ่มควบคุม */
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.2s ease, color 0.2s ease;
             user-select: none;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         .qty-control button:hover {
-            background-color: #c4a0d2;
+            background-color: rgba(189, 189, 189, 0.3);
+            color: #5271ff;
         }
         .qty-input {
             width: 40px;
             text-align: center;
-            padding: 4px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 6px;
+            border: 1px solid #5271ff;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            color: #5271ff;
+            background-color: rgba(255, 255, 255, 0.9);
         }
 
         button.add-btn {
-            background: #f0c6fb;
-            color: #00675b;
+            background: #f4572a; /* สีส้มแดงสำหรับปุ่มเพิ่มลงตะกร้า */
+            color: #ffffff;
             border: none;
-            border-radius: 50%;
+            padding: 10px 15px;
+            border-radius: 8px;
             cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.2s ease;
+            transition: all 0.2s ease;
             user-select: none;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            font-weight: normal;
+            font-family: 'Itim', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            padding-bottom: 12px;
+            padding-top: 12px;
         }
 
         button.add-btn:hover {
-            background-color: #bd97c6;
+            background: #5271ff; /* สีน้ำเงินตอน hover */
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.4);
         }
-        button.add-btn img {
-        /* คุณสมบัติเดิมที่คุณมีอยู่แล้ว */
-            width: 25px;
-            height: 25px;
-            vertical-align: middle; /* อันนี้อาจจะไม่จำเป็นเมื่อใช้ flexbox แต่เก็บไว้ก็ได้ */
+        button.add-btn .fas {
+            font-size: 1.2em;
+        }
 
-            /* เพิ่มโค้ดนี้เพื่อเลื่อนรูปภาพลงมา */
-            transform: translateY(3px); /* ลองปรับค่า 1px เป็น 2px หรือ 3px หากยังไม่ตรงกลาง */
-        }
-        #cart {
-            background: #ffffffcc;
+        /* รวมและปรับปรุง CSS ของตะกร้า */
+        #cart-container {
+            background: #ffffff;
             padding: 15px;
-            border-radius: 8px;
             max-width: 400px;
+            border: 4px solid #5271ff; /* ขอบน้ำเงิน */
+            border-radius: 10px;
             margin: 20px auto;
             box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-            backdrop-filter: blur(4px);
-        }
-        #cart li {
-            margin-left:30px;
-            padding: 5px 0;
-            border-bottom: 1px dotted #797979;
-            color: #00675b;
-            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
 
-        label, textarea, input {
-            display: block;
+        #cart-container::before {
+            content: "";
+            background-color: #ffffff; /* พื้นหลังสีขาว */
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            border-radius: 8px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        #cart-container h2 {
+            text-align: center;
+            color: #201e1f; /* สีดำสำหรับหัวข้อตะกร้า */
+            margin-top: 0;
+            font-weight: normal;
+        }
+        #cart-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #cart-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 2px dotted #f4572a; /* เส้นประสีส้มแดง */
+            color: #201e1f; /* สีดำสำหรับรายการสินค้า */
+            font-weight: normal;
+            font-size: 16px;
+            gap: 10px;
+            padding-left: 1.5em;
+            position: relative;
+        }
+
+        #cart-list li::before {
+            content: '\2022';
+            color: #f4572a; /* สีส้มแดงสำหรับ bullet */
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            left: 0.2em;
+            top: 50%;
+            transform: translateY(-50%);
+            position: absolute;
+            font-size: 1.5em;
+        }
+
+        #cart-list li span {
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        #cart-list li:last-child {
+            border-bottom: none;
+        }
+        .remove-item-btn {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+        .remove-item-btn:hover {
+            background-color: #fcebeb;
+            color: #c0392b;
+        }
+
+        /* --- Custom Styles for Labels and Inputs --- */
+        label {
+            display: flex; /* ใช้ Flexbox เพื่อจัดแนวไอคอนและข้อความ */
+            align-items: center; /* จัดให้ไอคอนและข้อความอยู่กึ่งกลางแนวตั้ง */
+            gap: 8px; /* เพิ่มระยะห่างระหว่างไอคอนและข้อความ */
             margin: 10px auto;
             max-width: 400px;
             width: 100%;
-            font-size: 14px;
-            color: #00675b;
-            font-weight: 600;
-        }
-
-        textarea {
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            background: #e8f5e9;
-            resize: vertical;
-            color: #2e7d32;
+            font-size: 18px;
+            color: #ffffff; /* สีขาวสำหรับข้อความ Label */
             font-weight: normal;
         }
 
+        label ion-icon { /* เพิ่ม CSS สำหรับ Ionicons โดยเฉพาะ */
+            font-size: 1.2em; /* กำหนดขนาดไอคอนให้พอดี */
+            color: #f4572a; /* สีส้มแดงสำหรับไอคอน */
+        }
+
+        textarea, input[type="time"] {
+            padding: 8px;
+            border-radius: 8px;
+            border: 3px solid #f4572a; /* ขอบสีส้มแดง */
+            background: #ffffff; /* พื้นหลังสีขาว */
+            resize: vertical;
+            color: #5271ff; /* สีน้ำเงินสำหรับข้อความใน Input */
+            font-weight: normal;
+            font-family: 'Itim', sans-serif;
+            display: block; /* ทำให้ input แสดงเป็น block-level element */
+            margin:auto; /* เพิ่มระยะห่างจาก label ด้านบน */
+            width: 300px;
+        }
+
         button.send-btn {
-            background: #fff9a0;
-            color: #00675b;
-            border: none;
+            background: #f4572a;
+            color: #ffffff;
+            border-radius: 10px;
             padding: 10px 20px;
             margin: 20px auto;
             display: block;
-            border-radius: 6px;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
-            font-weight: bold;
             user-select: none;
-            transition: background-color 0.2s ease;
+            transition: all 0.2s ease;
+            font-weight: normal;
+            font-family: 'Itim', sans-serif;
         }
         button.send-btn:hover {
-            background-color: #dfd658;
+            background: #5271ff;
+            transform: translateY(-2px);
+        }
+
+        /* สำหรับข้อความ "รวม" ในตะกร้า */
+        #cart-summary {
+            text-align: center;
+            font-family: 'Itim', sans-serif;
+            font-weight: normal;
+            font-size: 20px;
+            color: #201e1f; /* สีดำ */
+        }
+
+        /* สำหรับตัวเลขรวม (0 $) */
+        #cart-summary span#total {
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            font-size: 20px;
+            color: #201e1f; /* สีดำ */
+        }
+        .page-footer {
+            text-align: center;
+            margin: 0;
+            background-color: rgba(248, 248, 248, 0); /* โปร่งใส */
+            padding: 0;
+            width: 100%;
+        }
+        .page-footer img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 0;
         }
     </style>
 </head>
 <body>
-
-    <h1>🥬 Suwanwet Farm 🥬</h1>
-
+    <div class="page-header">
+        <img src="banner2.png" alt="Advertisement Banner">
+    </div>
     <div class="shop" id="shop"></div>
-    <h2 style="text-align:center; color:#000000;"><img src="carttt.png" width="250"></h2>
-    <ul id="cart"></ul>
-    <p style="text-align:center; font-weight:bold; color:#00675b;">รวม: <span id="total">0</span> $</p>
 
-    <label>🕒 เวลาที่รับของ:
-        <input type="time" id="pickupTime" />
-    </label>
+    <div id="cart-container">
+        <h2 style="text-align:center;">ตะกร้าสินค้า</h2>
+        <ul id="cart-list"></ul>
+        <p id="cart-summary">รวม: <span id="total">0</span> $</p>
+    </div>
 
-    <label>📝 แจ้งชื่อร้าน:
-        <textarea id="note" rows="3" placeholder=" Ex. Suwanwet Farm "></textarea>
-    </label>
+    <label><ion-icon name="time-outline"></ion-icon> เวลาที่รับของ:</label> <input type="time" id="pickupTime" />
 
-    <button class="send-btn" onclick="sendOrder()">ส่งออเดอร์</button>
-    <h2 style="text-align:center; color:#000000;"><img src="1_2.png" width="500"></h2>
+    <label><ion-icon name="create-outline"></ion-icon> แจ้งชื่อร้าน:</label> <textarea id="note" rows="3" placeholder=" Ex. Suwanwet Farm "></textarea>
+
+    <button class="send-btn" onclick="sendOrder()"><i class="fa-solid fa-clipboard"></i> ส่งออเดอร์</button>
+    <div class="page-footer">
+        <img src="footer2.png" alt="footer">
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script>
-        // **เปลี่ยน URL นี้เป็น URL ของ Backend ที่คุณ Deploy แล้ว (เช่น https://your-backend-app.onrender.com)**
         const BACKEND_URL = 'https://suwanwet-backend-hheu.onrender.com';
 
         const products = [
-            { name: "บีทรูท", price: 13, img: "06.png" }, 
-            { name: "กะหล่ำปลี", price: 13, img: "13.png" }, 
-            { name: "แครอท", price: 13, img: "08.png" }, 
-            { name: "ข้าวโพด", price: 13, img: "01.png" }, 
-            { name: "กระเทียม", price: 13, img: "11.png" }, 
-            { name: "แตงกวา", price: 13, img: "07.png" }, 
-            { name: "หัวหอม", price: 13, img: "03.png" }, 
-            { name: "แรดิช หัวผักกาด", price: 13, img: "09.png" }, 
-            { name: "ฟักทอง", price: 13, img: "05.png" }, 
-            { name: "มะเขือเทศ", price: 13, img: "04.png" }, 
-            { name: "แตงโม", price: 13, img: "10.png" }, 
-            { name: "ข้าว", price: 13, img: "12.png" }, 
-            { name: "ทานตะวัน", price: 13, img: "02.png" } 
+            { name: "บีทรูท", price: 13, img: "06.png" },
+            { name: "กะหล่ำปลี", price: 13, img: "13.png" },
+            { name: "แครอท", price: 13, img: "08.png" },
+            { name: "ข้าวโพด", price: 13, img: "01.png" },
+            { name: "กระเทียม", price: 13, img: "11.png" },
+            { name: "แตงกวา", price: 13, img: "07.png" },
+            { name: "หัวหอม", price: 13, img: "03.png" },
+            { name: "แรดิช หัวผักกาด", price: 13, img: "09.png" },
+            { name: "ฟักทอง", price: 13, img: "05.png" },
+            { name: "มะเขือเทศ", price: 13, img: "04.png" },
+            { name: "แตงโม", price: 13, img: "10.png" },
+            { name: "ข้าว", price: 13, img: "12.png" },
+            { name: "ทานตะวัน", price: 13, img: "02.png" }
         ];
 
         const shopEl = document.getElementById("shop");
@@ -231,19 +395,20 @@
                 <img src="${product.img}" alt="${product.name}" />
                 <span>${product.name} - ${product.price}$</span>
                 <div class="qty-control">
-            <button onclick="changeQty('${product.name}', -1)">-</button>
+                    <button onclick="changeQty('${product.name}', -1)">-</button>
                     <input
                         type="number"
                         min="1"
                         id="qty-${product.name}"
                         class="qty-input"
                         value="1"
-                    onchange="manualQtyChange('${product.name}')"
+                        onchange="manualQtyChange('${product.name}')"
                     />
                     <button onclick="changeQty('${product.name}', 1)">+</button>
                 </div>
                 <button class="add-btn" onclick="addToCart('${product.name}', ${product.price})">
-                    <img src="cart.png" alt="ใส่ตะกร้า"></button>
+                    <i class="fas fa-cart-plus"></i> เพิ่มลงตะกร้า
+                </button>
             `;
             shopEl.appendChild(div);
         });
@@ -270,15 +435,26 @@
             updateCart();
         }
 
+        function removeItemFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
         function updateCart() {
-            const cartList = document.getElementById("cart");
+            const cartList = document.getElementById("cart-list");
             const totalEl = document.getElementById("total");
             cartList.innerHTML = "";
+
             let total = 0;
 
-            cart.forEach((item) => {
+            cart.forEach((item, index) => {
                 const li = document.createElement("li");
-                li.textContent = `${item.name} x ${item.qty} ชิ้น = ${item.qty * item.price}$`; 
+                li.innerHTML = `
+                    <span>${item.name} x ${item.qty} ชิ้น = ${item.qty * item.price}$</span>
+                    <button class="remove-item-btn" onclick="removeItemFromCart(${index})">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                `;
                 cartList.appendChild(li);
                 total += item.qty * item.price;
             });
@@ -304,11 +480,11 @@
                 items: cart,
                 pickupTime: pickupTime,
                 note: note,
-                time: new Date().toISOString(), 
-                status: 'pending' 
+                time: new Date().toISOString(),
+                status: 'pending'
             };
 
-        try {
+            try {
                 const response = await fetch(`${BACKEND_URL}/api/orders`, {
                     method: 'POST',
                     headers: {
