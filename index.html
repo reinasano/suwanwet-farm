@@ -60,14 +60,13 @@
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             width: 180px;
-            height: 280px;
+            height: 280px; /* ปรับความสูงเล็กน้อยเพื่อรองรับข้อความสองภาษา */
             padding: 20px;
             text-align: center;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            /* ลบ border-image ออกเนื่องจาก product เป็นสีขาว */
             border: none; /* ไม่มีขอบ */
         }
         .product:hover {
@@ -90,6 +89,17 @@
             margin-top: 10px;
             margin-bottom: 5px;
             color: #201e1f; /* สีดำสำหรับชื่อสินค้า */
+            font-size: 0.9em; /* ปรับขนาดฟอนต์ให้เล็กลงหน่อยถ้าชื่อยาว */
+            line-height: 1.2; /* ปรับระยะห่างระหว่างบรรทัด */
+        }
+
+        /* Style for the product price */
+        .product span.product-price {
+            display: block;
+            margin-top: 0px;
+            color: #f4572a;
+            font-weight: bold;
+            font-size: 1em;
         }
 
         .qty-control {
@@ -97,8 +107,8 @@
             justify-content: center;
             align-items: center;
             gap: 8px;
-            margin-top: 30px;
-            margin-bottom: 60px;
+            margin-top: 20px;
+            margin-bottom: 50px;
             z-index: 1;
             position: relative;
         }
@@ -106,7 +116,7 @@
         .qty-control button {
             background: rgba(255, 255, 255, 1);
             border: none;
-            color: #5271ff; /* สีน้ำเงินสำหรับปุ่มควบคุม */
+            color: #5271ff;
             width: 30px;
             height: 30px;
             border-radius: 50%;
@@ -133,7 +143,7 @@
         }
 
         button.add-btn {
-            background: #f4572a; /* สีส้มแดงสำหรับปุ่มเพิ่มลงตะกร้า */
+            background: #f4572a;
             color: #ffffff;
             border: none;
             padding: 10px 15px;
@@ -160,19 +170,19 @@
         }
 
         button.add-btn:hover {
-            background: #5271ff; /* สีน้ำเงินตอน hover */
+            background: #5271ff;
             box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.4);
         }
         button.add-btn .fas {
             font-size: 1.2em;
         }
 
-        /* รวมและปรับปรุง CSS ของตะกร้า */
+        /* Cart Styles */
         #cart-container {
             background: #ffffff;
             padding: 15px;
             max-width: 400px;
-            border: 4px solid #5271ff; /* ขอบน้ำเงิน */
+            border: 4px solid #5271ff;
             border-radius: 10px;
             margin: 20px auto;
             box-shadow: 0 2px 6px rgba(0,0,0,0.15);
@@ -183,7 +193,7 @@
 
         #cart-container::before {
             content: "";
-            background-color: #ffffff; /* พื้นหลังสีขาว */
+            background-color: #ffffff;
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
@@ -199,7 +209,7 @@
 
         #cart-container h2 {
             text-align: center;
-            color: #201e1f; /* สีดำสำหรับหัวข้อตะกร้า */
+            color: #201e1f;
             margin-top: 0;
             font-weight: normal;
         }
@@ -213,8 +223,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 8px 0;
-            border-bottom: 2px dotted #f4572a; /* เส้นประสีส้มแดง */
-            color: #201e1f; /* สีดำสำหรับรายการสินค้า */
+            border-bottom: 2px dotted #f4572a;
+            color: #201e1f;
             font-weight: normal;
             font-size: 16px;
             gap: 10px;
@@ -224,7 +234,7 @@
 
         #cart-list li::before {
             content: '\2022';
-            color: #f4572a; /* สีส้มแดงสำหรับ bullet */
+            color: #f4572a;
             font-weight: bold;
             display: inline-block;
             width: 1em;
@@ -258,35 +268,35 @@
             color: #c0392b;
         }
 
-        /* --- Custom Styles for Labels and Inputs --- */
+        /* Custom Styles for Labels and Inputs */
         label {
-            display: flex; /* ใช้ Flexbox เพื่อจัดแนวไอคอนและข้อความ */
-            align-items: center; /* จัดให้ไอคอนและข้อความอยู่กึ่งกลางแนวตั้ง */
-            gap: 8px; /* เพิ่มระยะห่างระหว่างไอคอนและข้อความ */
+            display: flex;
+            align-items: center;
+            gap: 8px;
             margin: 10px auto;
             max-width: 400px;
             width: 100%;
             font-size: 18px;
-            color: #ffffff; /* สีขาวสำหรับข้อความ Label */
+            color: #ffffff;
             font-weight: normal;
         }
 
-        label ion-icon { /* เพิ่ม CSS สำหรับ Ionicons โดยเฉพาะ */
-            font-size: 1.2em; /* กำหนดขนาดไอคอนให้พอดี */
-            color: #f4572a; /* สีส้มแดงสำหรับไอคอน */
+        label ion-icon {
+            font-size: 1.2em;
+            color: #f4572a;
         }
 
         textarea, input[type="time"] {
             padding: 8px;
             border-radius: 8px;
-            border: 3px solid #f4572a; /* ขอบสีส้มแดง */
-            background: #ffffff; /* พื้นหลังสีขาว */
+            border: 3px solid #f4572a;
+            background: #ffffff;
             resize: vertical;
-            color: #5271ff; /* สีน้ำเงินสำหรับข้อความใน Input */
+            color: #5271ff;
             font-weight: normal;
             font-family: 'Itim', sans-serif;
-            display: block; /* ทำให้ input แสดงเป็น block-level element */
-            margin:auto; /* เพิ่มระยะห่างจาก label ด้านบน */
+            display: block;
+            margin:auto;
             width: 300px;
         }
 
@@ -309,26 +319,25 @@
             transform: translateY(-2px);
         }
 
-        /* สำหรับข้อความ "รวม" ในตะกร้า */
+        /* Cart Summary Styles */
         #cart-summary {
             text-align: center;
             font-family: 'Itim', sans-serif;
             font-weight: normal;
             font-size: 20px;
-            color: #201e1f; /* สีดำ */
+            color: #201e1f;
         }
 
-        /* สำหรับตัวเลขรวม (0 $) */
         #cart-summary span#total {
             font-family: 'Poppins', sans-serif;
             font-weight: bold;
             font-size: 20px;
-            color: #201e1f; /* สีดำ */
+            color: #201e1f;
         }
         .page-footer {
             text-align: center;
             margin: 0;
-            background-color: rgba(248, 248, 248, 0); /* โปร่งใส */
+            background-color: rgba(248, 248, 248, 0);
             padding: 0;
             width: 100%;
         }
@@ -337,6 +346,42 @@
             height: auto;
             display: block;
             margin: 0 0;
+        }
+
+        /* --- Toast Notification Styles --- */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background-color:#f4572a; /* Green background */
+            color: #201e1f;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform: translateX(100%);
+            font-family: 'Itim', sans-serif;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toast i {
+            font-size: 1.2em;
         }
     </style>
 </head>
@@ -361,83 +406,89 @@
         <img src="footer2.png" alt="footer">
     </div>
 
+    <div id="toast-container"></div>
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script>
         const BACKEND_URL = 'https://suwanwet-backend-hheu.onrender.com';
 
         const products = [
-            { name: "บีทรูท", price: 13, img: "06.png" },
-            { name: "กะหล่ำปลี", price: 13, img: "13.png" },
-            { name: "แครอท", price: 13, img: "08.png" },
-            { name: "ข้าวโพด", price: 13, img: "01.png" },
-            { name: "กระเทียม", price: 13, img: "11.png" },
-            { name: "แตงกวา", price: 13, img: "07.png" },
-            { name: "หัวหอม", price: 13, img: "03.png" },
-            { name: "แรดิช หัวผักกาด", price: 13, img: "09.png" },
-            { name: "ฟักทอง", price: 13, img: "05.png" },
-            { name: "มะเขือเทศ", price: 13, img: "04.png" },
-            { name: "แตงโม", price: 13, img: "10.png" },
-            { name: "ข้าว", price: 13, img: "12.png" },
-            { name: "ทานตะวัน", price: 13, img: "02.png" }
+            { nameTh: "บีทรูท", nameEn: "Beetroot", price: 13, img: "06.png" },
+            { nameTh: "กะหล่ำปลี", nameEn: "Cabbage", price: 13, img: "13.png" },
+            { nameTh: "แครอท", nameEn: "Carrot", price: 13, img: "08.png" },
+            { nameTh: "ข้าวโพด", nameEn: "Corn", price: 13, img: "01.png" },
+            { nameTh: "กระเทียม", nameEn: "Garlic", price: 13, img: "11.png" },
+            { nameTh: "แตงกวา", nameEn: "Cucumber", price: 13, img: "07.png" },
+            { nameTh: "หัวหอม", nameEn: "Onion", price: 13, img: "03.png" },
+            { nameTh: "แรดิช หัวผักกาด", nameEn: "Radish", price: 13, img: "09.png" },
+            { nameTh: "ฟักทอง", nameEn: "Pumpkin", price: 13, img: "05.png" },
+            { nameTh: "มะเขือเทศ", nameEn: "Tomato", price: 13, img: "04.png" },
+            { nameTh: "แตงโม", nameEn: "Watermelon", price: 13, img: "10.png" },
+            { nameTh: "ข้าว", nameEn: "Rice", price: 13, img: "12.png" },
+            { nameTh: "ทานตะวัน", nameEn: "Sunflower", price: 13, img: "02.png" }
         ];
 
         const shopEl = document.getElementById("shop");
         const cart = [];
-        const qtyMap = {};
+        const qtyMap = {}; // ใช้ nameTh เป็น key
 
         products.forEach(product => {
-            qtyMap[product.name] = 1;
+            qtyMap[product.nameTh] = 1; // ใช้ชื่อไทยเป็น key
 
             const div = document.createElement("div");
             div.className = "product";
             div.innerHTML = `
-                <img src="${product.img}" alt="${product.name}" />
-                <span>${product.name} - ${product.price}$</span>
+                <img src="${product.img}" alt="${product.nameTh}" />
+                <span>${product.nameTh} (${product.nameEn})</span>
+                <span class="product-price">${product.price}$</span>
                 <div class="qty-control">
-                    <button onclick="changeQty('${product.name}', -1)">-</button>
+                    <button onclick="changeQty('${product.nameTh}', -1)">-</button>
                     <input
                         type="number"
                         min="1"
-                        id="qty-${product.name}"
+                        id="qty-${product.nameTh}"
                         class="qty-input"
                         value="1"
-                        onchange="manualQtyChange('${product.name}')"
+                        onchange="manualQtyChange('${product.nameTh}')"
                     />
-                    <button onclick="changeQty('${product.name}', 1)">+</button>
+                    <button onclick="changeQty('${product.nameTh}', 1)">+</button>
                 </div>
-                <button class="add-btn" onclick="addToCart('${product.name}', ${product.price})">
+                <button class="add-btn" onclick="addToCart('${product.nameTh}', '${product.nameEn}', ${product.price})">
                     <i class="fas fa-cart-plus"></i> เพิ่มลงตะกร้า
                 </button>
             `;
             shopEl.appendChild(div);
         });
 
-        function changeQty(name, change) {
-            qtyMap[name] = Math.max(1, (qtyMap[name] || 1) + change);
-            document.getElementById(`qty-${name}`).value = qtyMap[name];
+        function changeQty(nameTh, change) {
+            qtyMap[nameTh] = Math.max(1, (qtyMap[nameTh] || 1) + change);
+            document.getElementById(`qty-${nameTh}`).value = qtyMap[nameTh];
         }
 
-        function manualQtyChange(name) {
-            const val = parseInt(document.getElementById(`qty-${name}`).value);
-            qtyMap[name] = isNaN(val) || val < 1 ? 1 : val;
-            document.getElementById(`qty-${name}`).value = qtyMap[name];
+        function manualQtyChange(nameTh) {
+            const val = parseInt(document.getElementById(`qty-${nameTh}`).value);
+            qtyMap[nameTh] = isNaN(val) || val < 1 ? 1 : val;
+            document.getElementById(`qty-${nameTh}`).value = qtyMap[nameTh];
         }
 
-        function addToCart(name, price) {
-            const qty = qtyMap[name];
-            const found = cart.find(item => item.name === name);
+        function addToCart(nameTh, nameEn, price) {
+            const qty = qtyMap[nameTh];
+            const found = cart.find(item => item.nameTh === nameTh);
             if (found) {
                 found.qty += qty;
             } else {
-                cart.push({ name, price, qty });
+                cart.push({ nameTh, nameEn, price, qty });
             }
             updateCart();
+            showToast(` เพิ่ม ${nameTh} ลงตะกร้าแล้ว!`); // แสดง Toast Notification
         }
 
         function removeItemFromCart(index) {
+            const removedItemName = cart[index].nameTh; // เก็บชื่อสินค้าที่ถูกลบ
             cart.splice(index, 1);
             updateCart();
+            showToast(`🗑️ ลบ ${removedItemName} ออกจากตะกร้าแล้ว`); // แสดง Toast Notification
         }
 
         function updateCart() {
@@ -450,7 +501,7 @@
             cart.forEach((item, index) => {
                 const li = document.createElement("li");
                 li.innerHTML = `
-                    <span>${item.name} x ${item.qty} ชิ้น = ${item.qty * item.price}$</span>
+                    <span>${item.nameTh} (${item.nameEn}) x ${item.qty} ชิ้น = ${item.qty * item.price}$</span>
                     <button class="remove-item-btn" onclick="removeItemFromCart(${index})">
                         <i class="fas fa-times-circle"></i>
                     </button>
@@ -461,10 +512,41 @@
 
             totalEl.textContent = total;
         }
+        
+        // --- Toast Notification Function ---
+        function showToast(message, type = 'success') {
+            const toastContainer = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            if (type === 'success') {
+                toast.style.backgroundColor = '#daff02'; // Green for success
+            } else if (type === 'info') {
+                toast.style.backgroundColor = '#2196F3'; // Blue for info
+            } else if (type === 'error') {
+                toast.style.backgroundColor = '#f44336'; // Red for error
+            }
+
+            toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`; // เพิ่มไอคอน
+            toastContainer.appendChild(toast);
+
+            // Show toast
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100); // Small delay to trigger transition
+
+            // Hide toast after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                // Remove toast from DOM after transition
+                toast.addEventListener('transitionend', () => {
+                    toast.remove();
+                });
+            }, 3000);
+        }
 
         async function sendOrder() {
             if (cart.length === 0) {
-                alert("กรุณาเลือกสินค้าก่อนส่งออเดอร์");
+                showToast("กรุณาเลือกสินค้าก่อนส่งออเดอร์", 'info');
                 return;
             }
 
@@ -472,12 +554,17 @@
             const note = document.getElementById("note").value.trim();
 
             if (!pickupTime) {
-                alert("กรุณาระบุเวลาที่รับของ");
+                showToast("กรุณาระบุเวลาที่รับของ", 'info');
                 return;
             }
 
             const orderData = {
-                items: cart,
+                items: cart.map(item => ({
+                    nameTh: item.nameTh,
+                    nameEn: item.nameEn,
+                    price: item.price,
+                    qty: item.qty
+                })),
                 pickupTime: pickupTime,
                 note: note,
                 time: new Date().toISOString(),
@@ -494,18 +581,18 @@
                 });
 
                 if (response.ok) {
-                    alert("✅ ส่งออเดอร์เรียบร้อยแล้ว! ออเดอร์ของคุณกำลังดำเนินการ");
+                    showToast(" ส่งออเดอร์เรียบร้อยแล้วค่ะ! รอรับบิลทางเว็บไซต์(Discord)ได้เลยนะคะ");
                     cart.length = 0;
                     updateCart();
                     document.getElementById("pickupTime").value = "";
                     document.getElementById("note").value = "";
                 } else {
                     const errorData = await response.json();
-                    alert(`⚠️ เกิดข้อผิดพลาดในการส่งออเดอร์: ${errorData.message || response.statusText}`);
+                    showToast(`⚠️ เกิดข้อผิดพลาดในการส่งออเดอร์: ${errorData.message || response.statusText}`, 'error');
                 }
             } catch (error) {
                 console.error('Error sending order:', error);
-                alert("❌ เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์ กรุณาลองใหม่");
+                showToast("❌ เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์ กรุณาลองใหม่", 'error');
             }
         }
     </script>

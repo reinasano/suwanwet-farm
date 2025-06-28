@@ -343,7 +343,7 @@
                 const itemsHTML = order.items.map(item => {
                     const itemTotal = item.qty * item.price;
                     total += itemTotal;
-                    return `<li><span>${item.name} ${item.qty} ชิ้น</span> <span>${itemTotal}$</span></li>`; 
+                    return `<li><span>${item.nameTh} (${item.nameEn}) ${item.qty} ชิ้น</span> <span>${itemTotal}$</span></li>`;
                 }).join("");
 
                 bill.innerHTML = `
