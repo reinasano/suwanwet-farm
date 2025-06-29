@@ -71,7 +71,7 @@
         /* --- Header Styles --- */
         .page-header {
             text-align: center;
-            margin-top: 50px; /* เพิ่มระยะห่างด้านบนเพื่อหลบ Navbar */
+            margin-top: 20px; /* เพิ่มระยะห่างด้านบนเพื่อหลบ Navbar */
             margin-bottom: 30px;
             background-color: rgba(248, 248, 248, 0); /* โปร่งใส */
             padding: 15px 0;
@@ -80,19 +80,26 @@
             overflow: hidden; /* Ensure images don't spill out */
         }
 
-        .slider-container {
-            display: flex;
-            transition: transform 0.8s ease-in-out; /* Smooth transition for slides */
-            width: 100%; /* To hold 4 images side-by-side initially */
-            height: 450px; /* กำหนดความสูงของแบนเนอร์ที่นี่ */
-        }
-
         .slider-img {
-            width: 100%; /* Each image takes full width of its container segment */
-            height: 100%; /* ปรับความสูงให้เต็ม container */
+            width: 100%;
+            height: 100%;
             display: block;
             margin: 0 auto;
-            object-fit: cover; /* Ensures images cover the area well */
+            /* *** เปลี่ยนจาก 'cover' เป็น 'contain' *** */
+            object-fit: contain; /* รูปจะถูกย่อ/ขยายให้พอดีกับพื้นที่ โดยไม่ถูกตัด */
+            /* ส่วนนี้จะช่วยจัดตำแหน่งของรูปภาพให้อยู่ตรงกลาง เมื่อมีพื้นที่ว่าง */
+            object-position: center;
+        }
+
+        .slider-container {
+            display: flex;
+            transition: transform 0.8s ease-in-out;
+            width: 100%;
+            /* แนะนำให้กำหนดความสูงที่ยืดหยุ่น เช่น vh หรือ aspect-ratio */
+            height: 70vh; /* ตัวอย่าง: 40% ของความสูงของหน้าจอ */
+            /* หรือใช้ aspect-ratio ถ้าอยากคุมสัดส่วน: */
+            /* aspect-ratio: 16 / 9; */
+            /* height: auto; */
         }
 
         /* Hide images by default, only show 'active' */
@@ -103,7 +110,7 @@
         .slider-dots {
             text-align: center;
             position: absolute;
-            bottom: 15px; /* **จัดให้อยู่ด้านล่างของกรอบภาพ** */
+            bottom: 40px; /* **จัดให้อยู่ด้านล่างของกรอบภาพ** */
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
