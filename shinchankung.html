@@ -90,12 +90,12 @@
             position: relative; 
             overflow: hidden;
         }
-        .bill::before{
+        .bill::before {
             content: "";
             background-image: url(bill1.png);
             background-repeat: no-repeat;
-            background-position: center;
-            background-size: 250px 250px;
+            background-position: center; /* ตรงนี้แหละที่กำหนดตำแหน่ง */
+            background-size: 50%; /* หรือ cover, auto, initial */
             position: absolute;
             top: 0;
             left: 0;
