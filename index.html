@@ -16,17 +16,16 @@
         }
 
         body {
-
-        font-family: 'Itim', sans-serif;
-        margin: 0;
-        padding: 0; /* **ตั้งค่า padding ของ body เป็น 0 เพื่อให้แน่ใจว่าไม่มีช่องว่างด้านล่าง** */
-        background: #5b6946; /* สีพื้นหลังหลัก */
-        background-image: url(bg1.png);
-        position: relative;
-        min-height: 100vh; /* กำหนดให้ body มีความสูงอย่างน้อยเท่ากับ viewport */
-        overflow-x: hidden;
-        display: flex; /* **ใช้ Flexbox เพื่อจัดการ Layout** */
-        flex-direction: column; /* จัดเรียงองค์ประกอบในแนวตั้ง */
+            font-family: 'Itim', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #5b6946; /* สีพื้นหลังหลัก */
+            background-image: url(bg1.png);
+            position: relative;
+            min-height: 100vh; /* กำหนดให้ body มีความสูงอย่างน้อยเท่ากับ viewport */
+            overflow-x: hidden;
+            display: flex; /* ใช้ Flexbox เพื่อจัดการ Layout */
+            flex-direction: column; /* จัดเรียงองค์ประกอบในแนวตั้ง */
         }
 
         /* --- Navbar Styles --- */
@@ -76,7 +75,7 @@
             background-color: rgba(248, 248, 248, 0); /* โปร่งใส */
             padding: 15px 0;
             width: 100%;
-            position: relative; /* **สำคัญ: สำหรับ position absolute ของ slider-dots** */
+            position: relative; /* สำคัญ: สำหรับ position absolute ของ slider-dots */
             overflow: hidden; /* Ensure images don't spill out */
         }
 
@@ -85,9 +84,7 @@
             height: 100%;
             display: block;
             margin: 0 auto;
-            /* *** เปลี่ยนจาก 'cover' เป็น 'contain' *** */
             object-fit: contain; /* รูปจะถูกย่อ/ขยายให้พอดีกับพื้นที่ โดยไม่ถูกตัด */
-            /* ส่วนนี้จะช่วยจัดตำแหน่งของรูปภาพให้อยู่ตรงกลาง เมื่อมีพื้นที่ว่าง */
             object-position: center;
         }
 
@@ -95,11 +92,7 @@
             display: flex;
             transition: transform 0.8s ease-in-out;
             width: 100%;
-            /* แนะนำให้กำหนดความสูงที่ยืดหยุ่น เช่น vh หรือ aspect-ratio */
             height: 70vh; /* ตัวอย่าง: 40% ของความสูงของหน้าจอ */
-            /* หรือใช้ aspect-ratio ถ้าอยากคุมสัดส่วน: */
-            /* aspect-ratio: 16 / 9; */
-            /* height: auto; */
         }
 
         /* Hide images by default, only show 'active' */
@@ -110,18 +103,18 @@
         .slider-dots {
             text-align: center;
             position: absolute;
-            bottom: 50px; /* **จัดให้อยู่ด้านล่างของกรอบภาพ** */
+            bottom: 50px; /* จัดให้อยู่ด้านล่างของกรอบภาพ */
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
         }
 
         .dot {
-            height: 8px; /* **ปรับให้เล็กลง** */
-            width: 8px; /* **ปรับให้เล็กลง** */
-            margin: 0 4px; /* **ลดระยะห่างระหว่างจุด** */
-            background-color: rgba(255, 255, 255, 0.6); /* **สีขาวกึ่งโปร่งใส** */
-            border: 1px solid rgba(0, 0, 0, 0.3); /* **เพิ่มเส้นขอบเล็กน้อย** */
+            height: 8px; /* ปรับให้เล็กลง */
+            width: 8px; /* ปรับให้เล็กลง */
+            margin: 0 4px; /* ลดระยะห่างระหว่างจุด */
+            background-color: rgba(255, 255, 255, 0.6); /* สีขาวกึ่งโปร่งใส */
+            border: 1px solid rgba(0, 0, 0, 0.3); /* เพิ่มเส้นขอบเล็กน้อย */
             border-radius: 50%;
             display: inline-block;
             transition: background-color 0.6s ease, transform 0.3s ease;
@@ -129,12 +122,12 @@
         }
 
         .dot:hover {
-            background-color: rgba(255, 255, 255, 0.9); /* **เปลี่ยนสีเมื่อ hover** */
-            transform: scale(1.2); /* **ทำให้ดูใหญ่ขึ้นเล็กน้อย** */
+            background-color: rgba(255, 255, 255, 0.9); /* เปลี่ยนสีเมื่อ hover */
+            transform: scale(1.2); /* ทำให้ดูใหญ่ขึ้นเล็กน้อย */
         }
 
         .dot.active {
-            background-color: #f5c23a; /* **สีส้ม/ทองตามธีม** */
+            background-color: #f5c23a; /* สีส้ม/ทองตามธีม */
             border: 1px solid #f5c23a;
             transform: scale(1.2);
         }
@@ -156,7 +149,7 @@
             justify-content: center;
             max-width: 1200px;
             margin: 0 auto 30px;
-            flex-grow: 1; /* **ทำให้เนื้อหาส่วนนี้ขยายตัวเพื่อดัน footer ลงไป** */
+            flex-grow: 1; /* ทำให้เนื้อหาส่วนนี้ขยายตัวเพื่อดัน footer ลงไป */
         }
 
         .product {
@@ -421,6 +414,15 @@
             transform: translateY(-2px);
         }
 
+        /* CSS เพิ่มเติมสำหรับปุ่มเมื่ออยู่ในสถานะ loading */
+        button.send-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+            background: #af6e1d; /* สีที่แตกต่างออกไปเพื่อแสดงว่าถูกปิดใช้งาน */
+            transform: none; /* ลบ hover effect */
+            box-shadow: none;
+        }
+
         /* Cart Summary Styles */
         #cart-summary {
             text-align: center;
@@ -449,7 +451,7 @@
         }
 
         .toast {
-            background-color:#f5c23a; /* Green background */
+            background-color:#f5c23a; /* Green for success */
             color: #48433a;
             padding: 12px 20px;
             border-radius: 8px;
@@ -539,8 +541,6 @@
         const qtyMap = {}; // ใช้ nameTh เป็น key
 
         products.forEach(product => {
-            qtyMap[product.nameTh] = 1; // ใช้ชื่อไทยเป็น key
-
             const div = document.createElement("div");
             div.className = "product";
             div.innerHTML = `
@@ -554,8 +554,7 @@
                         min="1"
                         id="qty-${product.nameTh}"
                         class="qty-input"
-                        value="1"
-                        onchange="manualQtyChange('${product.nameTh}')"
+                        value="" onchange="manualQtyChange('${product.nameTh}')"
                     />
                     <button onclick="changeQty('${product.nameTh}', 1)">+</button>
                 </div>
@@ -567,18 +566,28 @@
         });
 
         function changeQty(nameTh, change) {
-            qtyMap[nameTh] = Math.max(1, (qtyMap[nameTh] || 1) + change);
+            let currentVal = parseInt(document.getElementById(`qty-${nameTh}`).value) || 0; // ถ้าค่าว่าง ให้ถือเป็น 0
+            qtyMap[nameTh] = Math.max(1, currentVal + change);
             document.getElementById(`qty-${nameTh}`).value = qtyMap[nameTh];
         }
 
         function manualQtyChange(nameTh) {
             const val = parseInt(document.getElementById(`qty-${nameTh}`).value);
-            qtyMap[nameTh] = isNaN(val) || val < 1 ? 1 : val;
+            qtyMap[nameTh] = isNaN(val) || val < 1 ? 1 : val; // ถ้าค่าว่างหรือไม่ถูกต้อง ให้ตั้งเป็น 1
             document.getElementById(`qty-${nameTh}`).value = qtyMap[nameTh];
         }
 
         function addToCart(nameTh, nameEn, price) {
-            const qty = qtyMap[nameTh];
+            let qty = qtyMap[nameTh];
+
+            // หาก qty ยังไม่ได้ถูกกำหนด หรือเป็นค่าที่ไม่ถูกต้อง (เช่น NaN, 0 หรือติดลบ)
+            // ให้ตั้งค่าเริ่มต้นเป็น 1
+            if (isNaN(qty) || qty < 1) {
+                qty = 1;
+                qtyMap[nameTh] = 1; // อัปเดตค่าใน qtyMap ด้วย
+                document.getElementById(`qty-${nameTh}`).value = 1; // อัปเดตค่าใน input field ด้วย
+            }
+
             const found = cart.find(item => item.nameTh === nameTh);
             if (found) {
                 found.qty += qty;
@@ -663,6 +672,16 @@
                 return;
             }
 
+            const sendBtn = document.querySelector('.send-btn');
+            const originalBtnText = sendBtn.innerHTML; // เก็บข้อความเดิมของปุ่ม
+
+            // 1. แสดงสถานะ Loading บนปุ่มทันที
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังส่ง...'; // เพิ่ม icon หมุน
+
+            // 2. แสดงแจ้งเตือนทันทีว่ากำลังส่งออเดอร์
+            showToast("🚀 กำลังส่งออเดอร์...", 'info');
+
             const orderData = {
                 items: cart.map(item => ({
                     nameTh: item.nameTh,
@@ -686,7 +705,7 @@
                 });
 
                 if (response.ok) {
-                    showToast(" ส่งออเดอร์เรียบร้อยแล้วค่ะ! รอรับบิลทางเว็บไซต์(Discord)ได้เลยนะคะ");
+                    showToast("✅ ส่งออเดอร์เรียบร้อยแล้วค่ะ! รอรับบิลทางเว็บไซต์(Discord)ได้เลยนะคะ");
                     cart.length = 0;
                     updateCart();
                     document.getElementById("pickupTime").value = "";
@@ -698,6 +717,10 @@
             } catch (error) {
                 console.error('Error sending order:', error);
                 showToast("❌ เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์ กรุณาลองใหม่", 'error');
+            } finally {
+                // ไม่ว่าจะสำเร็จหรือล้มเหลว ให้คืนค่าสถานะปุ่มกลับมา
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = originalBtnText;
             }
         }
 
