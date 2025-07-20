@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suwanwet Farm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* **เพิ่ม CSS สำหรับ html เพื่อล้างค่าเริ่มต้น** */
+        html {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Itim', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #5b6946; /* สีพื้นหลังหลัก */
+            background-image: url(bg1.png);
+            position: relative;
+            min-height: 100vh; /* กำหนดให้ body มีความสูงอย่างน้อยเท่ากับ viewport */
+            overflow-x: hidden;
+            display: flex; /* ใช้ Flexbox เพื่อจัดการ Layout */
+            flex-direction: column; /* จัดเรียงองค์ประกอบในแนวตั้ง */
+        }
+
+        /* --- Navbar Styles --- */
+        .navbar {
+            display: flex;
+            justify-content: flex-end; /* ชิดขวา */
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #48433a; /* สีพื้นหลังเดียวกับ body */
+            position: fixed; /* ให้อยู่ด้านบนตลอดเมื่อเลื่อนหน้า */
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100; /* ให้อยู่เหนือเนื้อหาอื่น */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* เพิ่มเงาเล็กน้อย */
+            box-sizing: border-box; /* เพื่อไม่ให้ padding เพิ่มขนาดรวม */
+        }
+
+        .navbar-buttons {
+            display: flex;
+            gap: 15px; /* ระยะห่างระหว่างปุ่ม */
+        }
+
+        .navbar-button {
+            background-color: #f5c23a;
+            color: #48433a;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Itim', sans-serif;
+            font-size: 16px;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            text-decoration: none; /* สำหรับลิงก์ */
+        }
+
+        .navbar-button:hover {
+            background-color: #cda63b;
+            transform: translateY(-2px);
+        }
+
+        /* --- Header Styles --- */
+        .page-header {
+            text-align: center;
+            margin-top: 10px; /* เพิ่มระยะห่างด้านบนเพื่อหลบ Navbar */
+            margin-bottom: 30px;
+            background-color: rgba(248, 248, 248, 0); /* โปร่งใส */
+            padding: 15px 0;
+            width: 100%;
+            position: relative; /* สำคัญ: สำหรับ position absolute ของ slider-dots */
+            overflow: hidden; /* Ensure images don't spill out */
+        }
+
+        .slider-img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain; /* รูปจะถูกย่อ/ขยายให้พอดีกับพื้นที่ โดยไม่ถูกตัด */
+            object-position: center;
+        }
+
+        .slider-container {
+            display: flex;
+            transition: transform 0.8s ease-in-out;
+            width: 100%;
+            height: 70vh; /* ตัวอย่าง: 40% ของความสูงของหน้าจอ */
+        }
+
+        /* Hide images by default, only show 'active' */
+        .slider-img:not(.active) {
+            display: none;
+        }
+
+        .slider-dots {
+            text-align: center;
+            position: absolute;
+            bottom: 50px; /* จัดให้อยู่ด้านล่างของกรอบภาพ */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .dot {
+            height: 8px; /* ปรับให้เล็กลง */
+            width: 8px; /* ปรับให้เล็กลง */
+            margin: 0 4px; /* ลดระยะห่างระหว่างจุด */
+            background-color: rgba(255, 255, 255, 0.6); /* สีขาวกึ่งโปร่งใส */
+            border: 1px solid rgba(0, 0, 0, 0.3); /* เพิ่มเส้นขอบเล็กน้อย */
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dot:hover {
+            background-color: rgba(255, 255, 255, 0.9); /* เปลี่ยนสีเมื่อ hover */
+            transform: scale(1.2); /* ทำให้ดูใหญ่ขึ้นเล็กน้อย */
+        }
+
+        .dot.active {
+            background-color: #f5c23a; /* สีส้ม/ทองตามธีม */
+            border: 1px solid #f5c23a;
+            transform: scale(1.2);
+        }
+        /* --- End Header Styles --- */
+
+        h1 {
+            text-align: center;
+            color: #f4572a;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-weight: normal;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+        }
+
+        .shop {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            flex-grow: 1; /* ทำให้เนื้อหาส่วนนี้ขยายตัวเพื่อดัน footer ลงไป */
+        }
+
+        .product {
+            background: #faf3dd;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 180px;
+            height: 280px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+        .product:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .product img {
+            width: 80%;
+            border-radius: 8px;
+            margin-top: -15px;
+            height: 150px;
+            object-fit: cover;
+            opacity: 1;
+        }
+
+        .product span {
+            display: block;
+            font-weight: normal;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            color: #af6e1d;
+            font-size: 0.9em;
+            line-height: 1.2;
+        }
+
+        .product span.product-price {
+            display: block;
+            margin-top: 0px;
+            color: #af6e1d;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .qty-control {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            margin-bottom: 50px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .qty-control button {
+            background: rgba(255, 255, 255, 1);
+            border: none;
+            color: #5b6946;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            user-select: none;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .qty-control button:hover {
+            background-color: rgba(189, 189, 189, 0.3);
+            color: #5b6946;
+        }
+        .qty-input {
+            width: 40px;
+            text-align: center;
+            padding: 6px;
+            border: 1px solid #5b6946;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            color: #5b6946;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        button.add-btn {
+            background: #f5c23a;
+            color: #48433a;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            font-weight: normal;
+            font-family: 'Itim', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            padding-bottom: 12px;
+            padding-top: 12px;
+        }
+
+        button.add-btn:hover {
+            background: #cda63b;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.4);
+        }
+        button.add-btn .fas {
+            font-size: 1.2em;
+        }
+
+        /* Cart Styles */
+        #cart-container {
+            background: #f3e6d1;
+            padding: 15px;
+            max-width: 400px;
+            border: 4px solid #f5c23a;
+            border-radius: 10px;
+            margin: 20px auto;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        #cart-container::before {
+            content: "";
+            background-color: #f3e6d1 ;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            border-radius: 8px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        #cart-container h2 {
+            text-align: center;
+            color: #af6e1d;
+            margin-top: 0;
+            font-weight: normal;
+        }
+        #cart-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #cart-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 2px dotted #5b6946;
+            color: #af6e1d ;
+            font-weight: normal;
+            font-size: 16px;
+            gap: 10px;
+            padding-left: 1.5em;
+            position: relative;
+        }
+
+        #cart-list li::before {
+            content: '\2022';
+            color: #f4572a;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            left: 0.2em;
+            top: 50%;
+            transform: translateY(-50%);
+            position: absolute;
+            font-size: 1.5em;
+        }
+
+        #cart-list li span {
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        #cart-list li:last-child {
+            border-bottom: none;
+        }
+        .remove-item-btn {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+        .remove-item-btn:hover {
+            background-color: #fcebeb;
+            color: #c0392b;
+        }
+
+        /* Custom Styles for Labels and Inputs */
+        label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 10px auto;
+            max-width: 400px;
+            width: 100%;
+            font-size: 18px;
+            color: #f3e6d1;
+            font-weight: normal;
+        }
+
+        label ion-icon {
+            font-size: 1.2em;
+            color: #f5c23a;
+        }
+
+        textarea, input[type="time"] {
+            padding: 8px;
+            border-radius: 8px;
+            border: 3px solid #f5c23a;
+            background: #f3e6d1;
+            resize: vertical;
+            color: #af6e1d;
+            font-weight: normal;
+            font-family: 'Itim', sans-serif;
+            display: block;
+            margin:auto;
+            width: 300px;
+        }
+
+        button.send-btn {
+            background: #f5c23a;
+            color: #5b6946;
+            border-radius: 10px;
+            padding: 10px 20px;
+            margin: 20px auto;
+            display: block;
+            font-size: 18px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+            font-weight: normal;
+            font-family: 'Itim', sans-serif;
+        }
+        button.send-btn:hover {
+            background: #af6e1d ;
+            transform: translateY(-2px);
+        }
+
+        /* CSS เพิ่มเติมสำหรับปุ่มเมื่ออยู่ในสถานะ loading */
+        button.send-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+            background: #af6e1d; /* สีที่แตกต่างออกไปเพื่อแสดงว่าถูกปิดใช้งาน */
+            transform: none; /* ลบ hover effect */
+            box-shadow: none;
+        }
+
+        /* Cart Summary Styles */
+        #cart-summary {
+            text-align: center;
+            font-family: 'Itim', sans-serif;
+            font-weight: normal;
+            font-size: 20px;
+            color: #af6e1d ;
+        }
+
+        #cart-summary span#total {
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            font-size: 20px;
+            color: #af6e1d ;
+        }
+
+        /* --- Toast Notification Styles --- */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background-color:#f5c23a; /* Green for success */
+            color: #48433a;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform: translateX(100%);
+            font-family: 'Itim', sans-serif;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toast i {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-buttons">
+            <a href="#shop" class="navbar-button">Order</a>
+            <a href="#cart-container" class="navbar-button">Cart</a>
+            <a href="https://discord.gg/RMVbut5JRE" target="_blank" class="navbar-button">Discord</a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="slider-container">
+            <img class="slider-img active" src="banner1.png" alt="Banner 1">
+            <img class="slider-img" src="banner2.png" alt="Banner 2">
+            <img class="slider-img" src="banner3.png" alt="Banner 3">
+            <img class="slider-img" src="banner4.png" alt="Banner 4">
+        </div>
+        <div class="slider-dots">
+            <span class="dot active" onclick="currentSlide(0)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
+    <div class="shop" id="shop"></div>
+
+    <div id="cart-container">
+        <h2 style="text-align:center;">ตะกร้าสินค้า</h2>
+        <ul id="cart-list"></ul>
+        <p id="cart-summary">รวม: <span id="total">0</span> $</p>
+    </div>
+
+    <label><ion-icon name="time-outline"></ion-icon> เวลาที่รับของ:</label> <input type="time" id="pickupTime" />
+
+    <label><ion-icon name="create-outline"></ion-icon> แจ้งชื่อร้าน:</label> <textarea id="note" rows="3" placeholder=" Ex. Suwanwet Farm "></textarea>
+
+    <button class="send-btn" onclick="sendOrder()"><i class="fa-solid fa-clipboard"></i> ส่งออเดอร์</button>
+
+    <div id="toast-container"></div>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
+        const BACKEND_URL = 'https://suwanwet-backend-hheu.onrender.com';
+
+        const products = [
+            { nameTh: "บีทรูท", nameEn: "Beetroot", price: 13, img: "06.png" },
+            { nameTh: "กะหล่ำปลี", nameEn: "Cabbage", price: 13, img: "13.png" },
+            { nameTh: "แครอท", nameEn: "Carrot", price: 13, img: "08.png" },
+            { nameTh: "ข้าวโพด", nameEn: "Corn", price: 13, img: "01.png" },
+            { nameTh: "กระเทียม", nameEn: "Garlic", price: 13, img: "11.png" },
+            { nameTh: "แตงกวา", nameEn: "Cucumber", price: 13, img: "07.png" },
+            { nameTh: "หัวหอม", nameEn: "Onion", price: 13, img: "03.png" },
+            { nameTh: "แรดิช หัวผักกาด", nameEn: "Radish", price: 13, img: "09.png" },
+            { nameTh: "ฟักทอง", nameEn: "Pumpkin", price: 13, img: "05.png" },
+            { nameTh: "มะเขือเทศ", nameEn: "Tomato", price: 13, img: "04.png" },
+            { nameTh: "แตงโม", nameEn: "Watermelon", price: 13, img: "10.png" },
+            { nameTh: "ข้าว", nameEn: "Wheat", price: 13, img: "12.png" },
+            { nameTh: "ทานตะวัน", nameEn: "Sunflower", price: 13, img: "02.png" }
+        ];
+
+        const shopEl = document.getElementById("shop");
+        const cart = [];
+        const qtyMap = {}; // ใช้ nameTh เป็น key
+
+        products.forEach(product => {
+            const div = document.createElement("div");
+            div.className = "product";
+            div.innerHTML = `
+                <img src="${product.img}" alt="${product.nameTh}" />
+                <span>${product.nameTh} (${product.nameEn})</span>
+                <span class="product-price">${product.price}$</span>
+                <div class="qty-control">
+                    <button onclick="changeQty('${product.nameTh}', -1)">-</button>
+                    <input
+                        type="number"
+                        min="1"
+                        id="qty-${product.nameTh}"
+                        class="qty-input"
+                        value="" onchange="manualQtyChange('${product.nameTh}')"
+                    />
+                    <button onclick="changeQty('${product.nameTh}', 1)">+</button>
+                </div>
+                <button class="add-btn" onclick="addToCart('${product.nameTh}', '${product.nameEn}', ${product.price})">
+                    <i class="fas fa-cart-plus"></i> เพิ่มลงตะกร้า
+                </button>
+            `;
+            shopEl.appendChild(div);
+        });
+
+        function changeQty(nameTh, change) {
+            let currentVal = parseInt(document.getElementById(`qty-${nameTh}`).value) || 0; // ถ้าค่าว่าง ให้ถือเป็น 0
+            qtyMap[nameTh] = Math.max(1, currentVal + change);
+            document.getElementById(`qty-${nameTh}`).value = qtyMap[nameTh];
+        }
+
+        function manualQtyChange(nameTh) {
+            const val = parseInt(document.getElementById(`qty-${nameTh}`).value);
+            qtyMap[nameTh] = isNaN(val) || val < 1 ? 1 : val; // ถ้าค่าว่างหรือไม่ถูกต้อง ให้ตั้งเป็น 1
+            document.getElementById(`qty-${nameTh}`).value = qtyMap[nameTh];
+        }
+
+        function addToCart(nameTh, nameEn, price) {
+            let qty = qtyMap[nameTh];
+
+            // หาก qty ยังไม่ได้ถูกกำหนด หรือเป็นค่าที่ไม่ถูกต้อง (เช่น NaN, 0 หรือติดลบ)
+            // ให้ตั้งค่าเริ่มต้นเป็น 1
+            if (isNaN(qty) || qty < 1) {
+                qty = 1;
+                qtyMap[nameTh] = 1; // อัปเดตค่าใน qtyMap ด้วย
+                document.getElementById(`qty-${nameTh}`).value = 1; // อัปเดตค่าใน input field ด้วย
+            }
+
+            const found = cart.find(item => item.nameTh === nameTh);
+            if (found) {
+                found.qty += qty;
+            } else {
+                cart.push({ nameTh, nameEn, price, qty });
+            }
+            updateCart();
+            showToast(` เพิ่ม ${nameTh} ลงตะกร้าแล้ว!`); // แสดง Toast Notification
+        }
+
+        function removeItemFromCart(index) {
+            const removedItemName = cart[index].nameTh; // เก็บชื่อสินค้าที่ถูกลบ
+            cart.splice(index, 1);
+            updateCart();
+            showToast(`🗑️ ลบ ${removedItemName} ออกจากตะกร้าแล้ว`); // แสดง Toast Notification
+        }
+
+        function updateCart() {
+            const cartList = document.getElementById("cart-list");
+            const totalEl = document.getElementById("total");
+            cartList.innerHTML = "";
+
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <span>${item.nameTh} (${item.nameEn}) x ${item.qty} ชิ้น = ${item.qty * item.price}$</span>
+                    <button class="remove-item-btn" onclick="removeItemFromCart(${index})">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                `;
+                cartList.appendChild(li);
+                total += item.qty * item.price;
+            });
+
+            totalEl.textContent = total;
+        }
+        
+        // --- Toast Notification Function ---
+        function showToast(message, type = 'success') {
+            const toastContainer = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            if (type === 'success') {
+                toast.style.backgroundColor = '#f5c23a'; // Green for success
+            } else if (type === 'info') {
+                toast.style.backgroundColor = '#2196F3'; // Blue for info
+            } else if (type === 'error') {
+                toast.style.backgroundColor = '#f44336'; // Red for error
+            }
+
+            toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`; // เพิ่มไอคอน
+            toastContainer.appendChild(toast);
+
+            // Show toast
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100); // Small delay to trigger transition
+
+            // Hide toast after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                // Remove toast from DOM after transition
+                toast.addEventListener('transitionend', () => {
+                    toast.remove();
+                });
+            }, 3000);
+        }
+
+        async function sendOrder() {
+            if (cart.length === 0) {
+                showToast("กรุณาเลือกสินค้าก่อนส่งออเดอร์", 'info');
+                return;
+            }
+
+            const pickupTime = document.getElementById("pickupTime").value;
+            const note = document.getElementById("note").value.trim();
+
+            if (!pickupTime) {
+                showToast("กรุณาระบุเวลาที่รับของ", 'info');
+                return;
+            }
+
+            const sendBtn = document.querySelector('.send-btn');
+            const originalBtnText = sendBtn.innerHTML; // เก็บข้อความเดิมของปุ่ม
+
+            // 1. แสดงสถานะ Loading บนปุ่มทันที
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังส่ง...'; // เพิ่ม icon หมุน
+
+            // 2. แสดงแจ้งเตือนทันทีว่ากำลังส่งออเดอร์
+            showToast("🚀 กำลังส่งออเดอร์...", 'info');
+
+            const orderData = {
+                items: cart.map(item => ({
+                    nameTh: item.nameTh,
+                    nameEn: item.nameEn,
+                    price: item.price,
+                    qty: item.qty
+                })),
+                pickupTime: pickupTime,
+                note: note,
+                time: new Date().toISOString(),
+                status: 'pending'
+            };
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/orders`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                if (response.ok) {
+                    showToast("✅ ส่งออเดอร์เรียบร้อยแล้วค่ะ! รอรับบิลทางเว็บไซต์(Discord)ได้เลยนะคะ");
+                    cart.length = 0;
+                    updateCart();
+                    document.getElementById("pickupTime").value = "";
+                    document.getElementById("note").value = "";
+                } else {
+                    const errorData = await response.json();
+                    showToast(`⚠️ เกิดข้อผิดพลาดในการส่งออเดอร์: ${errorData.message || response.statusText}`, 'error');
+                }
+            } catch (error) {
+                console.error('Error sending order:', error);
+                showToast("❌ เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์ กรุณาลองใหม่", 'error');
+            } finally {
+                // ไม่ว่าจะสำเร็จหรือล้มเหลว ให้คืนค่าสถานะปุ่มกลับมา
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = originalBtnText;
+            }
+        }
+
+        // --- Slider JavaScript ---
+        let slideIndex = 0;
+        let slideInterval; // Variable to hold the interval for automatic sliding
+
+        function showSlides() {
+            let i;
+            const slides = document.getElementsByClassName("slider-img");
+            const dots = document.getElementsByClassName("dot");
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active'); // Hide all slides
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].classList.remove('active'); // Deactivate all dots
+            }
+
+            slideIndex++;
+            if (slideIndex > slides.length -1) { // Corrected logic for cycling through images
+                slideIndex = 0;
+            }
+
+            slides[slideIndex].classList.add('active'); // Show current slide
+            dots[slideIndex].classList.add('active'); // Activate current dot
+        }
+
+        function currentSlide(n) {
+            clearInterval(slideInterval); // Stop automatic slide when a dot is clicked
+            slideIndex = n;
+            showManualSlide(slideIndex); // Show the clicked slide immediately
+            startSlideShow(); // Restart automatic slideshow
+        }
+
+        function showManualSlide(n) {
+            let i;
+            const slides = document.getElementsByClassName("slider-img");
+            const dots = document.getElementsByClassName("dot");
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].classList.remove('active');
+            }
+
+            slides[n].classList.add('active');
+            dots[n].classList.add('active');
+        }
+
+        // Function to start the automatic slideshow
+        function startSlideShow() {
+            // Clear any existing interval to prevent multiple intervals running
+            if (slideInterval) {
+                clearInterval(slideInterval);
+            }
+            slideInterval = setInterval(showSlides, 3000); // Change image every 3 seconds (3000 milliseconds)
+        }
+
+        // Initial call to start the slideshow when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ensure the first slide and dot are active on load
+            const slides = document.getElementsByClassName("slider-img");
+            const dots = document.getElementsByClassName("dot");
+            if (slides.length > 0) {
+                slides[0].classList.add('active');
+                dots[0].classList.add('active');
+            }
+            startSlideShow();
+        });
+    </script>
+</body>
+</html>
